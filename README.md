@@ -26,4 +26,4 @@ To run this project locally:
 4. Run with `flutter run`
 
 ## 📁 Project Structure
-
+lib/ ├── main.dart ├── screens/ ├── services/ └── widgets/
