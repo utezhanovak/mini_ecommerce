@@ -1,8 +1,8 @@
-# Mini Ecommerce 🛍️
+# Mini Ecommerce 🛍
 
 This is a learning project for a mini e-commerce app built with **Flutter** and **Firebase**.
 
-## 🚀 Technologies Used
+##  Technologies Used
 
 - **Flutter** — Cross-platform UI toolkit
 - **Firebase**:
@@ -10,13 +10,13 @@ This is a learning project for a mini e-commerce app built with **Flutter** and 
   - `firebase_auth` — User authentication
   - `cloud_firestore` — Firestore database
 
-## 📦 Features
+##  Features
 
 - User registration and login
 - Firestore integration for storing product data
 - Clean and simple UI design
 
-## 🛠️ Getting Started
+## 🛠 Getting Started
 
 To run this project locally:
 
@@ -25,5 +25,5 @@ To run this project locally:
 3. Make sure Firebase is properly set up in the project
 4. Run with `flutter run`
 
-## 📁 Project Structure
+##  Project Structure
 lib/ ├── main.dart ├── screens/ ├── services/ └── widgets/
