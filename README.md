@@ -1,4 +1,4 @@
-# Mini Ecommerce 🛍
+# Mini Ecommerce 
 
 This is a learning project for a mini e-commerce app built with **Flutter** and **Firebase**.
 
@@ -16,7 +16,7 @@ This is a learning project for a mini e-commerce app built with **Flutter** and 
 - Firestore integration for storing product data
 - Clean and simple UI design
 
-## 🛠 Getting Started
+##  Getting Started
 
 To run this project locally:
 
