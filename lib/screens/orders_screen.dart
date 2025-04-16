@@ -32,11 +32,16 @@ class _OrdersScreenState extends State<OrdersScreen> {
 
       data.forEach((key, value) {
         final items = value['items'] ?? {};
-        loadedOrders.add({
-          'id': key,
-          'timestamp': items['timestamp'],
-          'total': items['total'],
-        });
+        final total = items['total'];
+        final timestamp = items['timestamp'];
+
+        if (total != null && total > 0 && timestamp != null) {
+          loadedOrders.add({
+            'id': key,
+            'timestamp': timestamp,
+            'total': total,
+          });
+        }
       });
 
       setState(() {
@@ -91,7 +96,8 @@ class _OrdersScreenState extends State<OrdersScreen> {
               },
             ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: isDark ? const Color(0xFF1C1C1C) : const Color(0xFFF3EAFD),
+        backgroundColor:
+            isDark ? const Color(0xFF1C1C1C) : const Color(0xFFF3EAFD),
         selectedItemColor: const Color(0xFF512DA8),
         unselectedItemColor: Colors.grey,
         currentIndex: 2,

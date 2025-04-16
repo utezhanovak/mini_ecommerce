@@ -1,7 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import '../models/cart.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
+
+  Future<void> _placeOrder(BuildContext context) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final ordersRef = FirebaseDatabase.instance.ref().child('orders');
+
+    if (user != null && cartItems.isNotEmpty) {
+      final total = cartItems.fold<double>(
+        0,
+        (sum, item) => sum + (item['price'] as double),
+      );
+
+      final orderData = {
+        'items': {
+          'timestamp': DateTime.now().toIso8601String(),
+          'total': total,
+        },
+      };
+
+      await ordersRef.child(user.uid).push().set(orderData);
+      cartItems.clear();
+
+      // Показываем диалог успеха
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: const Text("Success!"),
+          content: const Text("Your payment was successful."),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx); // Закрыть диалог
+                Navigator.pushNamed(context, '/orders'); // Перейти к заказам
+              },
+              child: const Text("Check Order"),
+            )
+          ],
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,26 +114,7 @@ class PaymentScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16)),
-                      title: const Text("Success!"),
-                      content: const Text("Your payment was successful."),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(ctx); // close dialog
-                            Navigator.pushNamed(context, '/orders');
-                          },
-                          child: const Text("Check Order"),
-                        )
-                      ],
-                    ),
-                  );
-                },
+                onPressed: () => _placeOrder(context),
                 child: const Text(
                   'Pay',
                   style: TextStyle(
